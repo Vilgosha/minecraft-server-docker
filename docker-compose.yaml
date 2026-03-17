@@ -1,0 +1,23 @@
+services:
+  mc:
+    image: itzg/minecraft-server
+    container_name: mc
+    restart: always
+    ports:
+      - "25565:25565"
+    volumes:
+      - /home/minecraft:/data
+    environment:
+      VERSION: "1.20.4"
+      EULA: "TRUE"
+      MEMORY: "4G"
+      TYPE: "VANILLA"
+      UID: "1000"
+      GID: "1000"
+    healthcheck:
+      test: ["CMD-SHELL", "mc-health"]
+      interval: 30s
+      start_period: 120s
+      retries: 2
+    stdin_open: false
+    tty: false
